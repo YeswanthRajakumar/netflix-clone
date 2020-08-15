@@ -1,3 +1,18 @@
+
+https://api.themoviedb.org/3/movie/550?api_key=d4c7d5b3975567317adf552934ca073f
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
