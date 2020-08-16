@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import request_instance from "./axios_request";
 import "./Row.css";
+
+
 function Row(props) {
   const BaseImageURL = "https://image.tmdb.org/t/p/original/";
   const [movies, setmovies] = useState([]);
@@ -11,7 +13,7 @@ function Row(props) {
     // if [] , run once the ROW loads,and don't run again
     async function fectcData() {
       const request = await request_instance.get(props.fetchURL);
-      console.log(request.data.results);
+      // console.log(request.data.results);
       let moviearray = request.data.results;
       setmovies(moviearray);
       return request;
