@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import request_instance from "./axios_request";
-
+import "./Row.css";
 function Row(props) {
-   const  BaseImageURL = "https://image.tmdb.org/t/p/original/"
+  const BaseImageURL = "https://image.tmdb.org/t/p/original/";
   const [movies, setmovies] = useState([]);
 
   //When a ROW loads we need to make a request to the API
@@ -19,15 +19,23 @@ function Row(props) {
     fectcData();
   }, [props.fetchURL]);
 
+  const LargerowStyle = {
+    maxHeight: "250px",
+  };
   return (
-    <div className="row" style={{ backgroundColor: "coral" }}>
-      
+    <div className="row">
       {/*for a single row container*/}
       <h1>{props.title}</h1>
-      <div className="row__posters" style={{backgroundColor:'salmon'}}>
+      <div className="row__posters">
         {/*for a list of posters*/}
         {movies.map((movie) => (
-            <img key={movie.id} src={BaseImageURL.concat(movie.poster_path)  } alt={movie.name}/>
+          <img
+            style={props.isLargeRow ? LargerowStyle : null}
+            key={movie.id}
+            src={BaseImageURL.concat(props.isLargeRow ? movie.poster_path : movie.backdrop_path
+            )}
+            alt={movie.name}
+          />
         ))}
       </div>
     </div>
