@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import request_instance from "./axios_request";
 import "./Row.css";
 
-
 function Row(props) {
   const BaseImageURL = "https://image.tmdb.org/t/p/original/";
   const [movies, setmovies] = useState([]);
@@ -34,7 +33,8 @@ function Row(props) {
           <img
             style={props.isLargeRow ? LargerowStyle : null}
             key={movie.id}
-            src={BaseImageURL.concat(props.isLargeRow ? movie.poster_path : movie.backdrop_path
+            src={BaseImageURL.concat(
+              props.isLargeRow ? movie.poster_path : movie.backdrop_path
             )}
             alt={movie.name}
           />
