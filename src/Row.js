@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import request_instance from "./axios_request";
 import "./Row.css";
+import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";
 
 function Row(props) {
   const BaseImageURL = "https://image.tmdb.org/t/p/original/";
   const [movies, setmovies] = useState([]);
+  const [trailerURL, setTrailerURL] = useState("");
 
   //When a ROW loads we need to make a request to the API
 
@@ -23,6 +26,29 @@ function Row(props) {
   const LargerowStyle = {
     maxHeight: "250px",
   };
+
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+  const handleClick = (movie) => {
+    if (trailerURL){
+       setTrailerURL("");
+    }
+    else {
+      movieTrailer(movie?.name || "")
+        .then((url) => {
+          const urlParams = new URLSearchParams(new URL(url).search);
+          setTrailerURL(urlParams.get("v"));
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
   return (
     <div className="row">
       {/*for a single row container*/}
@@ -31,6 +57,7 @@ function Row(props) {
         {/*for a list of posters*/}
         {movies.map((movie) => (
           <img
+            onClick={() => handleClick(movie)}
             style={props.isLargeRow ? LargerowStyle : null}
             key={movie.id}
             src={BaseImageURL.concat(
@@ -40,6 +67,7 @@ function Row(props) {
           />
         ))}
       </div>
+      {trailerURL && <YouTube videoId={trailerURL} opts={opts} />}
     </div>
   );
 }
